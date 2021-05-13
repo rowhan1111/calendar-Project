@@ -123,7 +123,7 @@ def changeday(month, day):
             month = "0" + str(month)
         if day < 10:
             day = "0" + str(day)
-        date = "2021-" + str(month) + "-" + str(day)
+        date =  str(month) + "-" + str(day)
         pen.goto(0, 200)
         #allow user to input the keyword and language
         keyword = str(turtle.textinput("keyword", "Enter what you want to search for:"))
@@ -164,7 +164,7 @@ def changeday(month, day):
             pen.write("No results", align = "center", font = ("Arial", 10, "normal"))
     else:
         pen.goto(0, 60)
-        date = "2021-" + str(month) + "-" + str(day)
+        date = str(month) + "-" + str(day)
         pen.write(date, align = "center", font = ("Arial", 15, "normal"))
         
         
@@ -241,22 +241,7 @@ def changeclick(x, y):
         scn.onkey(addschedule, "a")
 
         scn.listen()
-        scn.mainloop()
-
-
-
-    
-#move calendar back and forth    
-def monthpl():
-    global curmon
-    curmon += 1
-    calendar(curmon)
-  
-def monthmi():
-    global curmon
-    curmon -= 1
-    calendar(curmon)
- 
+        scn.mainloop()  
 
 def exitfunc():
     data = scheduledict
@@ -298,7 +283,24 @@ def calendar(mon):
                 pen.write(x + 1, False, align = "center")
                 
     scn.onclick(changeclick)
+    
+    def monthpl():
+        global curmon
+        curmon += 1
+        if curmon > 11:
+            curmon = curmon - 12
+        
+        calendar(curmon)
+    
     scn.onkey(monthpl, "Right")
+    
+    def monthmi():
+        global curmon
+        curmon -= 1
+        if curmon <= 0:
+            curmon = curmon + 12
+        calendar(curmon)
+        
     scn.onkey(monthmi, "Left")
     scn.onkey(exitfunc, "e")
     scn.listen()
@@ -307,3 +309,4 @@ curmon = int(current_date[0])
 
 #runs the function
 calendar(curmon)
+
